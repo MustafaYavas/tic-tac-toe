@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-margin-top {
+    margin-top: 6rem;
+}
+
+.container button {
+    border: none;
+    padding: 3rem;
+    background: none;
+}
+
+.border-bottom {
+    border-bottom: 2px solid white;
+    width: fit-content;
+}
+
+.border-right {
+    border-right: 2px solid white !important;
+    width: fit-content;
+}
