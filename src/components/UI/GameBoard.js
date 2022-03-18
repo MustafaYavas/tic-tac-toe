@@ -9,15 +9,11 @@ const oMark = `<i class='fa-solid fa-o text-light fs-1 ${styles['click-disable']
 const GameBoard = () => {
     const [icon, setIcon] = useState(xMark)
 
-    const changeValueHandler = (e) => {
+    const changeContentHandler = (e) => {
         if(e.target.innerHTML.length === 0) {
-            console.log(e.target.className)
-            e.target.innerHTML = '';
             e.target.innerHTML = icon;
-    
             setIcon(icon === xMark ? oMark : xMark);
         }
-        
     }
 
     return (
@@ -27,88 +23,50 @@ const GameBoard = () => {
                 <div className={`row ${styles['row-height']}`}>
                     <div 
                         className={`col-4 ${styles['row-item-flex']} ${styles['border-right']} ${styles['border-bottom']} ${styles['row-item-height']}`}
-                        onClick={changeValueHandler}
-                    >
-                        
-                    </div>
+                        onClick={changeContentHandler}
+                    ></div>
 
                     <div 
                         className={`col-4 ${styles['row-item-flex']} ${styles['border-right']} ${styles['border-bottom']} ${styles['row-item-height']}`}
-                        onClick={changeValueHandler}
-                    >
-                        
-                    </div>
+                        onClick={changeContentHandler}
+                    ></div>
                         
                     <div 
                         className={`col-4 ${styles['row-item-flex']} ${styles['border-bottom']} ${styles['row-item-height']}`}
-                        onClick={changeValueHandler}
-                    >
-                        
-                    </div>
+                        onClick={changeContentHandler}
+                    ></div>
 
                     <div 
                         className={`col-4 ${styles['row-item-flex']} ${styles['border-right']} ${styles['border-bottom']} ${styles['row-item-height']}`}
-                        onClick={changeValueHandler}    
-                    >
-                        
-                    </div>
+                        onClick={changeContentHandler}    
+                    ></div>
 
                     <div 
                         className={`col-4 ${styles['row-item-flex']} ${styles['border-right']} ${styles['border-bottom']} ${styles['row-item-height']}`}
-                        onClick={changeValueHandler}    
-                    >
-                        
-                    </div>
+                        onClick={changeContentHandler}    
+                    ></div>
                     
                     <div 
                         className={`col-4 ${styles['row-item-flex']} ${styles['border-bottom']} ${styles['row-item-height']}`}
-                        onClick={changeValueHandler}
-                    >
-                        
-                    </div>
+                        onClick={changeContentHandler}
+                    ></div>
 
                     <div 
                         className={`col-4 ${styles['row-item-flex']} ${styles['border-right']} ${styles['row-item-height']}`}
-                        onClick={changeValueHandler}
-                    >
-                        
-                    </div>
+                        onClick={changeContentHandler}
+                    ></div>
                     
                     <div 
                         className={`col-4 ${styles['row-item-flex']} ${styles['border-right']} ${styles['row-item-height']}`}
-                        onClick={changeValueHandler}
-                    >
-                        
-                    </div>
+                        onClick={changeContentHandler}
+                    ></div>
 
                     <div 
                         className={`col-4 ${styles['row-item-flex']} ${styles['row-item-height']}`}
-                        onClick={changeValueHandler}
-                    >
-                        
-                    </div>
+                        onClick={changeContentHandler}
+                    ></div>
                 </div>
-
             </div>
-
-            {/* <div className={`${styles['sub-container']} ${styles['border-right']}`}>
-                <div onClick={changeValueHandler} className={``}><i class='fa-solid fa-x text-light fs-1'></i></div>
-                <div onClick={changeValueHandler} className={``}><i class='fa-solid fa-x text-light fs-1'></i></div>
-                <div onClick={changeValueHandler}><i class='fa-solid fa-x text-light fs-1'></i></div>
-            </div>
-            
-            <div className={`${styles['sub-container']} ${styles['border-right']}`}>
-                <div onClick={changeValueHandler} className={``}><i class='fa-solid fa-x text-light fs-1'></i></div>
-                <div onClick={changeValueHandler} className={``}><i class='fa-solid fa-x text-light fs-1'></i></div>
-                <div onClick={changeValueHandler}><i class='fa-solid fa-x text-light fs-1'></i></div>
-            </div>
-
-            <div className={`${styles['sub-container']}`}>
-                <div onClick={changeValueHandler} className={``}><i class='fa-solid fa-x text-light fs-1'></i></div>
-                <div onClick={changeValueHandler} className={``}><i class='fa-solid fa-x text-light fs-1'></i></div>
-                <div onClick={changeValueHandler}><i class='fa-solid fa-x text-light fs-1'></i></div>
-            </div> */}
-            
         </div>
     )
 }
