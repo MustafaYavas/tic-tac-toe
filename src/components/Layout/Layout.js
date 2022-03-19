@@ -1,5 +1,5 @@
-import GameBoard from "../UI/GameBoard"
-import ScoreBoard from "../UI/ScoreBoard"
+import GameBoard from '../UI/GameBoard'
+import ScoreBoard from '../UI/ScoreBoard'
 
 
 const Layout = () => {
