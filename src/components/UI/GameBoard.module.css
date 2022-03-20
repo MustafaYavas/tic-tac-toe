@@ -21,7 +21,6 @@
     height: 6rem ;
 }
 
-
 .border-bottom {
     border-bottom: 2px solid white !important;
 }
@@ -32,4 +31,30 @@
 
 .click-disable {
     pointer-events: none;
+}
+
+.box-color-blue {
+    background-color: #0DCAF0;
+}
+
+.box-color-red {
+    background-color: #DC3545;
+}
+
+.box-rotate {
+    animation: boxRotate 2s ease-in-out;
+}
+
+@keyframes boxRotate {
+    0% {
+        transform: rotateY(0deg)
+    }
+
+    50% {
+        transform: rotateY(180deg)
+    }
+
+    100% {
+        transform: rotateY(360deg)
+    }
 }

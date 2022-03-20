@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './GameBoard.module.css';
 import { gameActions } from '../../store/game-slice';
 
-const xMark = `<i class='fa-solid fa-x text-light fs-1 ${styles['click-disable']}'></i>`;
-const oMark = `<i class='fa-solid fa-o text-light fs-1 ${styles['click-disable']}'></i>`;
+const xMark = `<i class='fa-solid fa-x text-light fs-1 bg-transparent ${styles['click-disable']}'></i>`;
+const oMark = `<i class='fa-solid fa-o text-light fs-1 bg-transparent ${styles['click-disable']}'></i>`;
 
 const GameBoard = () => {
+    const box1 = useRef(1); const box2 = useRef(2); const box3 = useRef(3); const box4 = useRef(4); const box5 = useRef(5);
+    const box6 = useRef(6); const box7 = useRef(7); const box8 = useRef(8); const box9 = useRef(9);
     const [icon, setIcon] = useState(xMark);
     const [winConditions] = useState([
         [1,2,3],
@@ -20,6 +22,7 @@ const GameBoard = () => {
         [3,5,7]
     ]);
     const [valueAssignable, setValueAssignable] = useState(true);
+    const [animationBoxes, setAnimationBoxes] = useState([])
     const gameState = useSelector(state =>  state.game);
     const dispatch = useDispatch();
 
@@ -45,6 +48,7 @@ const GameBoard = () => {
                 for(let i=0; i<winConditions.length; i++){
                     if(JSON.stringify(winConditions[i]) === JSON.stringify(gameState.xValues.slice(0,3))){
                         dispatch(gameActions.setWinner('Player 1'));
+                        setAnimationBoxes(winConditions[i])
                         return;
                     }
                 }
@@ -54,6 +58,7 @@ const GameBoard = () => {
                 for(let j=0; j<winConditions.length; j++){
                     if(JSON.stringify(winConditions[j]) === JSON.stringify(gameState.oValues.slice(0,3))){
                         dispatch(gameActions.setWinner('Player 2'));
+                        setAnimationBoxes(winConditions[j])
                         return;
                     }
                 }
@@ -72,8 +77,12 @@ const GameBoard = () => {
     const resetGameHandler = () => {
         dispatch(gameActions.clearValues());
         setIcon(xMark);
-        setValueAssignable(false)
+        setValueAssignable(false);
+        setAnimationBoxes([])
     }
+
+    const Player1Win = `${styles['box-rotate']} ${styles['box-color-blue']}`;
+    const Player2Win = `${styles['box-rotate']} ${styles['box-color-red']}`;
 
 
     return (
@@ -101,72 +110,138 @@ const GameBoard = () => {
                 <div className={`container text-light ${styles['container-width']}`}>
                     <div className={`row ${styles['row-container']} ${styles['row-height']}`}>
                         <button 
-                            value='1'
-                            className={`col-4 ${styles['row-item-flex']} ${styles['border-right']} ${styles['border-bottom']} ${styles['row-item-height']}`}
+                            value={box1.current}
+                            className={`
+                                col-4 
+                                ${styles['row-item-flex']} 
+                                ${styles['border-right']} 
+                                ${styles['border-bottom']} 
+                                ${styles['row-item-height']} 
+                                ${(animationBoxes.includes(box1.current) && gameState.winner==='Player 1') ? Player1Win : ''}
+                                ${(animationBoxes.includes(box1.current) && gameState.winner==='Player 2') ? Player2Win : ''}
+                            `}
                             onClick={assignIconToButtonHandler}
                         >
                             {valueAssignable===false && ''}
                         </button>
 
                         <button  
-                            value='2'
-                            className={`col-4 ${styles['row-item-flex']} ${styles['border-right']} ${styles['border-bottom']} ${styles['row-item-height']}`}
+                            value={box2.current}
+                            className={`
+                                col-4 
+                                ${styles['row-item-flex']} 
+                                ${styles['border-right']} 
+                                ${styles['border-bottom']} 
+                                ${styles['row-item-height']} 
+                                ${(animationBoxes.includes(box2.current) && gameState.winner==='Player 1') ? Player1Win : ''}
+                                ${(animationBoxes.includes(box2.current) && gameState.winner==='Player 2') ? Player2Win : ''}
+                            `}
                             onClick={assignIconToButtonHandler}
                         >
                             {valueAssignable===false && ''}
                         </button>
                             
                         <button  
-                            value='3'
-                            className={`col-4 ${styles['row-item-flex']} ${styles['border-bottom']} ${styles['row-item-height']}`}
+                            value={box3.current}
+                            className={`
+                                col-4 
+                                ${styles['row-item-flex']} 
+                                ${styles['border-bottom']} 
+                                ${styles['row-item-height']} 
+                                ${(animationBoxes.includes(box3.current) && gameState.winner==='Player 1') ? Player1Win : ''}
+                                ${(animationBoxes.includes(box3.current) && gameState.winner==='Player 2') ? Player2Win : ''}
+                            `}
                             onClick={assignIconToButtonHandler}
                         >
                             {valueAssignable===false && ''}
                         </button>
 
                         <button  
-                            value='4'
-                            className={`col-4 ${styles['row-item-flex']} ${styles['border-right']} ${styles['border-bottom']} ${styles['row-item-height']}`}
+                            value={box4.current}
+                            className={`
+                                col-4 
+                                ${styles['row-item-flex']} 
+                                ${styles['border-right']} 
+                                ${styles['border-bottom']} 
+                                ${styles['row-item-height']} 
+                                ${(animationBoxes.includes(box4.current) && gameState.winner==='Player 1') ? Player1Win : ''}
+                                ${(animationBoxes.includes(box4.current) && gameState.winner==='Player 2') ? Player2Win : ''}
+                            `}
                             onClick={assignIconToButtonHandler}    
                         >
                             {valueAssignable===false && ''}
                         </button>
 
                         <button  
-                            value='5'
-                            className={`col-4 ${styles['row-item-flex']} ${styles['border-right']} ${styles['border-bottom']} ${styles['row-item-height']}`}
+                            value={box5.current}
+                            className={`
+                                col-4 
+                                ${styles['row-item-flex']} 
+                                ${styles['border-right']} 
+                                ${styles['border-bottom']} 
+                                ${styles['row-item-height']} 
+                                ${(animationBoxes.includes(box5.current) && gameState.winner==='Player 1') ? Player1Win : ''}
+                                ${(animationBoxes.includes(box5.current) && gameState.winner==='Player 2') ? Player2Win : ''}
+                            `}
                             onClick={assignIconToButtonHandler}    
                         >
                             {valueAssignable===false && ''}
                         </button>
                         
                         <button  
-                            value='6'
-                            className={`col-4 ${styles['row-item-flex']} ${styles['border-bottom']} ${styles['row-item-height']}`}
+                            value={box6.current}
+                            className={`
+                                col-4 
+                                ${styles['row-item-flex']} 
+                                ${styles['border-bottom']} 
+                                ${styles['row-item-height']} 
+                                ${(animationBoxes.includes(box6.current) && gameState.winner==='Player 1') ? Player1Win : ''}
+                                ${(animationBoxes.includes(box6.current) && gameState.winner==='Player 2') ? Player2Win : ''}
+                            `}
                             onClick={assignIconToButtonHandler}
                         >
                             {valueAssignable===false && ''}
                         </button>
 
                         <button  
-                            value='7'
-                            className={`col-4 ${styles['row-item-flex']} ${styles['border-right']} ${styles['row-item-height']}`}
+                            value={box7.current}
+                            className={`
+                                col-4 
+                                ${styles['row-item-flex']} 
+                                ${styles['border-right']} 
+                                ${styles['row-item-height']} 
+                                ${(animationBoxes.includes(box7.current) && gameState.winner==='Player 1') ? Player1Win : ''}
+                                ${(animationBoxes.includes(box7.current) && gameState.winner==='Player 2') ? Player2Win : ''}
+                            `}
                             onClick={assignIconToButtonHandler}
                         >
                             {valueAssignable===false && ''}
                         </button>
                         
                         <button  
-                            value='8'
-                            className={`col-4 ${styles['row-item-flex']} ${styles['border-right']} ${styles['row-item-height']}`}
+                            value={box8.current}
+                            className={`
+                                col-4 
+                                ${styles['row-item-flex']} 
+                                ${styles['border-right']} 
+                                ${styles['row-item-height']} 
+                                ${(animationBoxes.includes(box8.current) && gameState.winner==='Player 1') ? Player1Win : ''}
+                                ${(animationBoxes.includes(box8.current) && gameState.winner==='Player 2') ? Player2Win : ''}
+                            `}
                             onClick={assignIconToButtonHandler}
                         >
                             {valueAssignable===false && ''}
                         </button>
 
                         <button  
-                            value='9'
-                            className={`col-4 ${styles['row-item-flex']} ${styles['row-item-height']}`}
+                            value={box9.current}
+                            className={`
+                                col-4 
+                                ${styles['row-item-flex']} 
+                                ${styles['row-item-height']} 
+                                ${(animationBoxes.includes(box9.current) && gameState.winner==='Player 1') ? Player1Win : ''}
+                                ${(animationBoxes.includes(box9.current) && gameState.winner==='Player 2') ? Player2Win : ''}
+                            `}
                             onClick={assignIconToButtonHandler}
                         >
                             {valueAssignable===false && ''}
