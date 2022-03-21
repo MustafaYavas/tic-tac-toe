@@ -1,6 +1,6 @@
 # :x::o: Tic-Tac-Toe :o::x:
 
-Tic-Tac-Toe game created with React.js and Bootstrap.
+[Tic-Tac-Toe](https://musfata-yavas-tic-tac-toe.netlify.app/) game created with React.js and Bootstrap.
 
 ## Table of Contents
 * [Technologies](#technologies)
