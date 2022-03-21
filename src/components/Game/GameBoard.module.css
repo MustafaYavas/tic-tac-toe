@@ -33,14 +33,6 @@
     pointer-events: none;
 }
 
-.box-color-blue {
-    background-color: #0DCAF0;
-}
-
-.box-color-red {
-    background-color: #DC3545;
-}
-
 .box-rotate {
     animation: boxRotate 2s ease-in-out;
 }

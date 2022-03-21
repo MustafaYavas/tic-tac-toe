@@ -81,8 +81,8 @@ const GameBoard = () => {
         setAnimationBoxes([])
     }
 
-    const Player1Win = `${styles['box-rotate']} ${styles['box-color-blue']}`;
-    const Player2Win = `${styles['box-rotate']} ${styles['box-color-red']}`;
+    const Player1Win = `${styles['box-rotate']} bg-info`;
+    const Player2Win = `${styles['box-rotate']} bg-danger`;
 
 
     return (
@@ -93,7 +93,6 @@ const GameBoard = () => {
                     <span className={icon===`${xMark}`?'text-info':'text-danger'}>{icon===`${xMark}`? 'Player 1' : 'Player 2'}</span> is Playing !
                 </p>
             }
-
             {
                 (gameState.winner!=='Draw' && gameState.winner) && 
                 <p className='text-light text-center mt-3 fs-3'>
