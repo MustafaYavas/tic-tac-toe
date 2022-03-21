@@ -46,20 +46,24 @@ const GameBoard = () => {
         if(icon.includes('fa-o')) {
             if(gameState.xValues.length >= 3 ) {
                 for(let i=0; i<winConditions.length; i++){
-                    if(JSON.stringify(winConditions[i]) === JSON.stringify(gameState.xValues.slice(0,3))){
-                        dispatch(gameActions.setWinner('Player 1'));
-                        setAnimationBoxes(winConditions[i])
-                        return;
+                    for(let j=0; j<3; j++){
+                        if(winConditions[i].every(el => gameState.xValues.includes(el))) {
+                            dispatch(gameActions.setWinner('Player 1'));
+                            setAnimationBoxes(winConditions[i])
+                            return;
+                        }
                     }
                 }
             }
         } else {
             if(gameState.oValues.length >= 3) {
-                for(let j=0; j<winConditions.length; j++){
-                    if(JSON.stringify(winConditions[j]) === JSON.stringify(gameState.oValues.slice(0,3))){
-                        dispatch(gameActions.setWinner('Player 2'));
-                        setAnimationBoxes(winConditions[j])
-                        return;
+                for(let i=0; i<winConditions.length; i++){
+                    for(let j=0; j<3; j++){
+                        if(winConditions[i].every(el => gameState.xValues.includes(el))) {
+                            dispatch(gameActions.setWinner('Player 1'));
+                            setAnimationBoxes(winConditions[i])
+                            return;
+                        }
                     }
                 }
             }   
