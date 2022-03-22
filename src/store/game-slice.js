@@ -17,11 +17,9 @@ const gameSlice = createSlice({
         addValue(state, action) {
             if(action.payload.type === 'x') {
                 state.xValues.push(action.payload.value);
-                state.xValues = state.xValues.sort((a, b) => {return a - b})
             }
             else {
                 state.oValues.push(action.payload.value);
-                state.oValues = state.oValues.sort((a, b) => {return a - b})
             } 
         },
 

@@ -59,8 +59,8 @@ const GameBoard = () => {
             if(gameState.oValues.length >= 3) {
                 for(let i=0; i<winConditions.length; i++){
                     for(let j=0; j<3; j++){
-                        if(winConditions[i].every(el => gameState.xValues.includes(el))) {
-                            dispatch(gameActions.setWinner('Player 1'));
+                        if(winConditions[i].every(el => gameState.oValues.includes(el))) {
+                            dispatch(gameActions.setWinner('Player 2'));
                             setAnimationBoxes(winConditions[i])
                             return;
                         }
