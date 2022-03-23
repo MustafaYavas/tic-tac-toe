@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './GameBoard.module.css';
@@ -22,15 +22,14 @@ const GameBoard = () => {
         [3,5,7]
     ]);
     const [valueAssignable, setValueAssignable] = useState(true);
-    const [animationBoxes, setAnimationBoxes] = useState([])
+    const [animationBoxes, setAnimationBoxes] = useState([]);
     const gameState = useSelector(state =>  state.game);
     const dispatch = useDispatch();
 
     const assignIconToButtonHandler = (e) => {
-        
         if(!gameState.winner) {
             if(e.target.innerHTML.length === 0) {
-                addValueToStore(icon.includes('fa-x')?'x':'o', parseInt(e.target.value))
+                addValueToStore(icon.includes('fa-x')?'x':'o', parseInt(e.target.value));
                 e.target.innerHTML = icon;
                 setIcon(icon === xMark ? oMark : xMark);
             }
@@ -41,53 +40,50 @@ const GameBoard = () => {
         dispatch(gameActions.addValue({type, value}));
     }
 
-    useEffect(() => {
-        // check if 3 boxes in a row are the same icon
-        if(icon.includes('fa-o')) {
-            if(gameState.xValues.length >= 3 ) {
-                for(let i=0; i<winConditions.length; i++){
-                    for(let j=0; j<3; j++){
-                        if(winConditions[i].every(el => gameState.xValues.includes(el))) {
-                            dispatch(gameActions.setWinner('Player 1'));
-                            setAnimationBoxes(winConditions[i])
-                            return;
-                        }
-                    }
+    const checkSomeoneWin = useCallback((icon) => {
+        let isThereWinner = false;
+        if(icon === oMark) {
+            for(let i=0; i<winConditions.length; i++){
+                if(winConditions[i].every(el => gameState.xValues.includes(el))) {
+                    dispatch(gameActions.setWinner('Player 1'));
+                    setAnimationBoxes(winConditions[i]);
+                    isThereWinner = true;
+                    return;
                 }
             }
         } else {
-            if(gameState.oValues.length >= 3) {
-                for(let i=0; i<winConditions.length; i++){
-                    for(let j=0; j<3; j++){
-                        if(winConditions[i].every(el => gameState.oValues.includes(el))) {
-                            dispatch(gameActions.setWinner('Player 2'));
-                            setAnimationBoxes(winConditions[i])
-                            return;
-                        }
-                    }
+            for(let i=0; i<winConditions.length; i++){
+                if(winConditions[i].every(el => gameState.oValues.includes(el))) {
+                    dispatch(gameActions.setWinner('Player 2'));
+                    setAnimationBoxes(winConditions[i]);
+                    isThereWinner = true;
+                    return;
                 }
-            }   
+            }
         }
-    }, [icon, dispatch, gameState.xValues, gameState.oValues, winConditions]);
 
-    useEffect(() => {
-        setValueAssignable(true);
-        if((gameState.xValues.length+gameState.oValues.length === 9 && !gameState.winner)){
+        if(!isThereWinner && gameState.xValues.length+gameState.oValues.length===9) {
             dispatch(gameActions.setWinner('Draw'));
         }
-    }, [gameState.xValues, gameState.oValues, dispatch, gameState.winner])
+        
+        setValueAssignable(true);
+    }, [dispatch, gameState.xValues, gameState.oValues, winConditions]);
+
+
+    useEffect(() => {
+        checkSomeoneWin(icon);
+    }, [gameState.xValues, gameState.oValues, icon, checkSomeoneWin]);
 
 
     const resetGameHandler = () => {
         dispatch(gameActions.clearValues());
         setIcon(xMark);
         setValueAssignable(false);
-        setAnimationBoxes([])
+        setAnimationBoxes([]);
     }
 
     const Player1Win = `${styles['box-rotate']} bg-info`;
     const Player2Win = `${styles['box-rotate']} bg-danger`;
-
 
     return (
         <>
